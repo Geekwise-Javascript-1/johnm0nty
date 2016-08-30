@@ -14,7 +14,7 @@
 // btn.onclick = btnclick;
 
 // var submitBtn = document.getElementById('submit');
-var form = document.getElementsByTagName('form')[0];
+// var form = document.getElementsByTagName('form')[0];
 // console.log(form.elements)
 //
 // function getVals(e){
@@ -48,16 +48,35 @@ var form = document.getElementsByTagName('form')[0];
 //
 // foo('John');
 
-var inputEl = [];
 var inc = 0;
 
 function addMore(){
-  inputEl.push(document.createElement('input'));
-  inputEl[inc].id = 'newId'+inc;
-  inputEl[inc].name = 'new';
-  inputEl[inc].type = 'email';
-  inputEl[inc].placeholder = 'placeholder';
-  form.appendChild(inputEl[inc]);
+  var newLabel = document.createElement('label');
+  newLabel.id = 'newLabelId'+inc;
+  newLabel.for = 'generic'+inc;
+  newLabel.textContent = 'Generic ';
+  newLabel.style = 'display:block';
+  form.insertBefore(newLabel,submitBtn);
+
+  var newInput = document.createElement('input');
+  newInput.id = 'newInputId'+inc;
+  newInput.name = 'generic'+inc;
+  newInput.type = 'email';
+  newInput.placeholder = 'placeholder';
+  newLabel.appendChild(newInput);
   inc++;
 }
-btn.onclick = addMore;
+
+function getInputVals(e){
+  e.preventDefault();
+  var inputs = [];
+  for(var i=0;i<form.elements.length;i++){
+    inputs.push(form.elements[i].value)
+  }
+  inputs.pop();
+  console.log(inputs);
+}
+
+btn.addEventListener('click',addMore);
+
+submitBtn.addEventListener('click',getInputVals);

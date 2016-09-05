@@ -7,22 +7,45 @@
   <title>Document</title>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body>
-  <div class="container">
-    <div class="row">
-      <h1>To-Do List</h1>
-    </div>
-    <label for="input">To-Do Item 1
-      <input type="text" name="input" id="toDo" placeholder="Enter an item">
-    </label>
-    <button id="submitBtn">Submit</button>
-    <div class="row">
-      <div class="col-xs-6">
-        <ul id="list1"></ul>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">To-Do List</a>
       </div>
-      <div class="col-xs-6">
-        <ul id="list2"></ul>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <form class="navbar-form navbar-left">
+          <div class="form-group">
+            <input type="text" class="form-control" name="input" id="toDo" placeholder="Enter an item">
+          </div>
+          <button type="button" class="btn btn-default" id="submitBtn">Submit</button>
+          <button type="button" class="btn btn-default" id="clearList">Clear List</button>
+        </form>
+        <form class="navbar-form navbar-right">
+          <button type="button" class="btn btn-default" id="saveList">Save List</button>
+          <button type="button" class="btn btn-default" id="loadList">Load List</button>
+          <button type="button" class="btn btn-default" id="exportTxt">Export to text file</button>
+          <button type="button" class="btn btn-default" id="importTxt">Import from text file</button>
+          <div id="importOptions">
+            <input type="file" class="btn btn-default" id="browseImport">
+            <button type="button" class="btn btn-default" id="parseImport">Import List</button>
+          </div>
+        </form>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <ul id="list"></ul>
       </div>
     </div>
   </div>

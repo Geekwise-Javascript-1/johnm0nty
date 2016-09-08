@@ -1,3 +1,13 @@
 #list {
   list-style:none;
 }
+#importOptions {
+  position:absolute;
+  top:53px;
+  right:0;
+  z-index:10000;
+  display:none;
+}
+.fa-edit, .fa-remove {
+  cursor:pointer;
+}

@@ -1,5 +1,12 @@
-// http://www.htmlgoodies.com/beyond/javascript/read-text-files-using-the-javascript-filereader.html#fbid=D_BcEFXdZJ5
-
+function inputControl(e){
+  if (e.keyCode == 13){
+    e.preventDefault();
+    submitBtn.click();
+  }
+  if (e.keyCode == 220){
+    e.preventDefault();
+  }
+}
 function newItem(){
   toDo.value = toDo.value.trim();
   if(!toDo.value.length > 0){
@@ -114,28 +121,47 @@ function exportToTxt(){
   a.click();
 }
 function toggleImport(){
-  if(importOptions.style.display.trim() != 'none'){
+  if(importOptions.style.display == 'block'){
     importOptions.style.display = 'none';
   }else{
     importOptions.style.display = 'block';
   }
 }
+function importFromTxt(e){
+  var f = e.target.files[0];
+  if(!f.type.match('text*')){
+    alert('Invalid file type!');
+  }else if(f){
+    var r = new FileReader();
+    r.onload = function(e){
+      var contents = e.target.result;
+      if (document.getElementsByClassName('listItems').length > 0){
+        var confirmation = confirm('Warning: this will overwrite your current list! Do you want to continue?');
+        if (!confirmation){
+          return;
+        }
+      }
+      list.innerHTML = '';
+      var listItems = contents.split('|');
+      for(var i=0;i<listItems.length-1;i++){
+        toDo.value = listItems[i];
+        newItem();
+      }
+    }
+    r.readAsText(f);
+  }
+  browseImport.value = '';
+  toggleImport();
+}
 
 var inc = 0;
-importOptions.style.display = 'none';
+// importOptions.style.display = 'none';
 
-toDo.addEventListener('keydown',function(e){
-  if (e.keyCode == 13){
-    e.preventDefault();
-    submitBtn.click();
-  }
-  if (e.keyCode == 220){
-    e.preventDefault();
-  }
-});
+toDo.addEventListener('keydown',inputControl);
 submitBtn.addEventListener('click',newItem);
 clearList.addEventListener('click',deleteAll);
 saveList.addEventListener('click',saveAll);
 loadList.addEventListener('click',loadAll);
 exportTxt.addEventListener('click',exportToTxt);
 importTxt.addEventListener('click',toggleImport);
+browseImport.addEventListener('change',importFromTxt);

@@ -41,14 +41,20 @@ function newItem(){
   newEdit.className = 'fa fa-edit';
   newEdit.id = 'edit'+inc;
   newEdit.addEventListener('click',editItem);
+  newEdit.dataToggle = 'tooltip';
+  newEdit.title = 'Edit this entry';
 
   newDelete.className = 'fa fa-remove';
   newDelete.id = 'delete'+inc;
   newDelete.addEventListener('click',deleteItem);
+  newDelete.dataToggle = 'tooltip';
+  newDelete.title = 'Delete this entry';
 
   editDate.className = 'fa fa-edit';
   editDate.id = 'editDate'+inc;
   editDate.addEventListener('click',editTheDate);
+  editDate.dataToggle = 'tooltip';
+  editDate.title = 'Edit the due date for this entry';
 
   spacer1.textContent = ' ';
   spacer1.style.display = 'inline';
@@ -89,9 +95,11 @@ function deleteItem(){
   toDelete.parentNode.removeChild(toDelete);
 }
 function deleteAll(){
-  var confirmation = confirm('Are you sure you want to clear the list?');
-  if (confirmation){
-    list.innerHTML = '';
+  if(document.getElementsByClassName('listItems').length > 0){
+    var confirmation = confirm('Are you sure you want to clear the list?');
+    if (confirmation){
+      list.innerHTML = '';
+    }
   }
 }
 function saveAll(){

@@ -64,11 +64,11 @@ function newItem(){
   newLi.appendChild(newDelete);
   newLi.appendChild(spacer2);
   newLi.appendChild(newToDo);
+  newLi.appendChild(spacer3);
   if(dueDate.value.length > 0){
-    newLi.appendChild(spacer3);
     newLi.appendChild(newDate);
-    newLi.appendChild(editDate);
   }
+  newLi.appendChild(editDate);
   list.appendChild(newLi);
 
   toDo.value = '';
@@ -210,6 +210,18 @@ function checkDate(date){
 function editTheDate(){
   var newDate;
   var toEditDate = document.getElementById('due'+this.id.substr(8));
+  if(!toEditDate){
+    toEditDate = document.createElement('p');
+    var parentDiv = document.getElementById('li'+this.id.substr(8));
+    var spacer = document.createElement('p');
+    toEditDate.id = 'due'+this.id.substr(8);
+    toEditDate.style.display = 'inline';
+    toEditDate.className = 'listDates';
+    spacer.textContent = ' ';
+    spacer.style.display = 'inline';
+    parentDiv.insertBefore(toEditDate,this);
+    parentDiv.insertBefore(spacer,this);
+  }
   do{
     newDate = prompt('Please enter the new due date in the form MM/DD/YY. Leave blank to remove the due date, or click Cancel to return without changing the due date.');
     var isValid;
@@ -247,7 +259,6 @@ function editTheDate(){
     item.style.fontWeight = '400';
     item.style.color = '#000';
     this.parentNode.removeChild(toEditDate);
-    this.parentNode.removeChild(this);
   }
 }
 function isDue(){
